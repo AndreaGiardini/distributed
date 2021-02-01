@@ -6401,8 +6401,8 @@ class Scheduler(SchedulerState, ServerNode):
 
         # CPU
         cpu = math.ceil(
-            parent._total_occupancy / target_duration
-        )  # TODO: threads per worker
+            parent._total_occupancy / target_duration / (len(parent._workers_dv) - parent._total_nthreads)
+        )
 
         # Avoid a few long tasks from asking for many cores
         ws: WorkerState
